@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathIX - Perpangkatan & Bentuk Akar Kelas IX</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- KaTeX for Beautiful Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script>
+        function initKaTeX() {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="initKaTeX()"></script>
+
+    <!-- Canvas Confetti for Quiz -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Custom Tailwind Styling Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandGreen: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        brandYellow: {
+                            50: '#fefce8',
+                            100: '#fef9c3',
+                            300: '#fde047',
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            700: '#a16207',
+                        }
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+        .green-yellow-gradient {
+            background: linear-gradient(135deg, #059669 0%, #10b981 50%, #eab308 100%);
+        }
+        .yellow-accent-gradient {
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+        }
+        .active-tab {
+            background-color: #059669 !important;
+            color: #ffffff !important;
+            border-bottom: 4px solid #facc15 !important;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #059669;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Top Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md border-b-2 border-brandYellow-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('materi')">
+                    <div class="w-12 h-12 rounded-xl green-yellow-gradient flex items-center justify-center text-white shadow-lg text-2xl font-bold">
+                        <i class="fa-solid font-bold text-white">xⁿ</i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-extrabold tracking-tight text-brandGreen-900">Math<span class="text-brandYellow-600">IX</span></span>
+                        <span class="block text-xs font-semibold text-brandGreen-700 uppercase tracking-widest">Bab 1: Perpangkatan & Bentuk Akar</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Buttons -->
+                <nav class="hidden md:flex space-x-2">
+                    <button onclick="switchTab('materi')" id="btn-materi" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-700 hover:text-brandGreen-700 transition flex items-center space-x-2">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Materi Esensial</span>
+                    </button>
+                    <button onclick="switchTab('kalkulator')" id="btn-kalkulator" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-700 hover:text-brandGreen-700 transition flex items-center space-x-2">
+                        <i class="fa-solid fa-calculator"></i>
+                        <span>Kalkulator & Lab</span>
+                    </button>
+                    <button onclick="switchTab('simulasi')" id="btn-simulasi" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-700 hover:text-brandGreen-700 transition flex items-center space-x-2">
+                        <i class="fa-solid fa-virus"></i>
+                        <span>Simulasi Pembelahan</span>
+                    </button>
+                    <button onclick="switchTab('kuis')" id="btn-kuis" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-700 hover:text-brandGreen-700 transition flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <span>Latihan & Kuis</span>
+                    </button>
+                    <button onclick="switchTab('tokoh')" id="btn-tokoh" class="nav-btn px-4 py-2.5 rounded-lg text-sm font-semibold text-gray-700 hover:text-brandGreen-700 transition flex items-center space-x-2">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        <span>Tokoh Matematika</span>
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-lg text-brandGreen-800 hover:bg-brandGreen-50 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('materi'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-brandGreen-50 hover:text-brandGreen-800">
+                <i class="fa-solid fa-book-open mr-2 text-brandGreen-600"></i> Materi Esensial
+            </button>
+            <button onclick="switchTab('kalkulator'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-brandGreen-50 hover:text-brandGreen-800">
+                <i class="fa-solid fa-calculator mr-2 text-brandGreen-600"></i> Kalkulator & Lab
+            </button>
+            <button onclick="switchTab('simulasi'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-brandGreen-50 hover:text-brandGreen-800">
+                <i class="fa-solid fa-virus mr-2 text-brandGreen-600"></i> Simulasi Pembelahan
+            </button>
+            <button onclick="switchTab('kuis'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-brandGreen-50 hover:text-brandGreen-800">
+                <i class="fa-solid fa-circle-question mr-2 text-brandGreen-600"></i> Latihan & Kuis
+            </button>
+            <button onclick="switchTab('tokoh'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 hover:bg-brandGreen-50 hover:text-brandGreen-800">
+                <i class="fa-solid fa-user-graduate mr-2 text-brandGreen-600"></i> Tokoh Matematika
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- TAB 1: MATERI ESENSIAL -->
+        <section id="tab-materi" class="tab-content space-y-8">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-3xl green-yellow-gradient p-8 md:p-12 text-white shadow-xl">
+                <div class="relative z-10 max-w-3xl">
+                    <span class="inline-block px-3 py-1 bg-brandYellow-400 text-brandGreen-900 rounded-full text-xs font-bold uppercase tracking-wider mb-4 shadow">
+                        Kurikulum 2013 Revisi 2018
+                    </span>
+                    <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
+                        Masteri Konsep Perpangkatan & Bentuk Akar
+                    </h1>
+                    <p class="text-emerald-50 text-base md:text-lg mb-6 font-normal">
+                        Pelajari konsep perkalian berulang, perkalian & pembagian pangkat, pangkat nol & negatif, bentuk akar, hingga notasi ilmiah secara visual dan interaktif.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="#submateri" class="bg-brandYellow-400 text-brandGreen-900 hover:bg-brandYellow-300 font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center space-x-2">
+                            <span>Mulai Belajar</span>
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                        <button onclick="switchTab('kalkulator')" class="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-semibold px-6 py-3 rounded-xl border border-white/30 transition flex items-center space-x-2">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Coba Kalkulator</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Background Geometric Decoration -->
+                <div class="absolute -right-12 -bottom-12 opacity-15 text-white pointer-events-none">
+                    <i class="fa-solid fa-square-root-variable text-[260px]"></i>
+                </div>
+            </div>
+
+            <!-- Submateri Selector -->
+            <div id="submateri" class="pt-4">
+                <h2 class="text-2xl font-bold text-brandGreen-900 mb-6 flex items-center space-x-2">
+                    <i class="fa-solid fa-list-check text-brandYellow-500"></i>
+                    <span>Sub-Bab Pembelajaran</span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1.1 -->
+                    <div class="glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300 border-t-4 border-brandGreen-600 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-brandGreen-100 text-brandGreen-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+                                1.1
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Bilangan Berpangkat</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Konsep dasar perkalian berulang dari suatu bilangan yang sama, menentukan basis (bilangan pokok) dan eksponen (pangkat).
+                            </p>
+                            <div class="bg-brandGreen-50 p-3 rounded-xl mb-4 font-mono text-sm text-brandGreen-900">
+                                $$a^n = \underbrace{a \times a \times \dots \times a}_{n \text{ faktor}}$$
+                            </div>
+                        </div>
+                        <button onclick="openMateriModal(1)" class="w-full py-2.5 bg-brandGreen-600 hover:bg-brandGreen-700 text-white font-semibold rounded-xl transition flex items-center justify-center space-x-2">
+                            <span>Pelajari Detail</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 1.2 -->
+                    <div class="glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300 border-t-4 border-brandGreen-600 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-brandGreen-100 text-brandGreen-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+                                1.2
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Perkalian pada Perpangkatan</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Perkalian perpangkatan dengan basis sama, memangkatkan suatu perpangkatan, dan memangkatkan perkalian bilangan.
+                            </p>
+                            <div class="bg-brandGreen-50 p-3 rounded-xl mb-4 font-mono text-sm text-brandGreen-900">
+                                $$a^m \times a^n = a^{m+n}$$
+                            </div>
+                        </div>
+                        <button onclick="openMateriModal(2)" class="w-full py-2.5 bg-brandGreen-600 hover:bg-brandGreen-700 text-white font-semibold rounded-xl transition flex items-center justify-center space-x-2">
+                            <span>Pelajari Detail</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 1.3 -->
+                    <div class="glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300 border-t-4 border-brandGreen-600 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-brandGreen-100 text-brandGreen-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+                                1.3
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Pembagian pada Perpangkatan</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Hasil bagi perpangkatan dengan basis sama serta perpangkatan pada pecahan biasa/campuran.
+                            </p>
+                            <div class="bg-brandGreen-50 p-3 rounded-xl mb-4 font-mono text-sm text-brandGreen-900">
+                                $$\frac{a^m}{a^n} = a^{m-n}$$
+                            </div>
+                        </div>
+                        <button onclick="openMateriModal(3)" class="w-full py-2.5 bg-brandGreen-600 hover:bg-brandGreen-700 text-white font-semibold rounded-xl transition flex items-center justify-center space-x-2">
+                            <span>Pelajari Detail</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 1.4 -->
+                    <div class="glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300 border-t-4 border-brandYellow-500 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-brandYellow-100 text-brandYellow-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+                                1.4
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Pangkat Nol, Negatif & Akar</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Sifat pangkat nol ($a^0=1$), pangkat negatif ($a^{-n}=1/a^n$), menyederhanakan & merasionalkan bentuk akar.
+                            </p>
+                            <div class="bg-brandYellow-50 p-3 rounded-xl mb-4 font-mono text-sm text-brandYellow-900">
+                                $$a^0 = 1, \quad a^{-n} = \frac{1}{a^n}$$
+                            </div>
+                        </div>
+                        <button onclick="openMateriModal(4)" class="w-full py-2.5 bg-brandYellow-500 hover:bg-brandYellow-600 text-brandGreen-950 font-bold rounded-xl transition flex items-center justify-center space-x-2">
+                            <span>Pelajari Detail</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Card 1.5 -->
+                    <div class="glass-card rounded-2xl p-6 hover:shadow-xl transition-all duration-300 border-t-4 border-brandYellow-500 flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 bg-brandYellow-100 text-brandYellow-700 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+                                1.5
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Notasi Ilmiah (Bentuk Baku)</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Penulisan angka yang sangat besar (seperti jarak antar planet) atau sangat kecil (ukuran mikroba/virus).
+                            </p>
+                            <div class="bg-brandYellow-50 p-3 rounded-xl mb-4 font-mono text-sm text-brandYellow-900">
+                                $$a \times 10^n \quad (1 \le a < 10)$$
+                            </div>
+                        </div>
+                        <button onclick="openMateriModal(5)" class="w-full py-2.5 bg-brandYellow-500 hover:bg-brandYellow-600 text-brandGreen-950 font-bold rounded-xl transition flex items-center justify-center space-x-2">
+                            <span>Pelajari Detail</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Summary Card -->
+                    <div class="bg-gradient-to-br from-brandGreen-800 to-brandGreen-950 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="w-12 h-12 bg-brandYellow-400 text-brandGreen-950 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Rangkuman Sifat Lengkap</h3>
+                            <p class="text-emerald-200 text-sm mb-4">
+                                Akses cepat ke seluruh rumus dan hukum perpangkatan untuk persiapan ujian & tugas harian.
+                            </p>
+                        </div>
+                        <button onclick="openRangkumanModal()" class="w-full py-2.5 bg-brandYellow-400 hover:bg-brandYellow-300 text-brandGreen-950 font-bold rounded-xl transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-file-invoice"></i>
+                            <span>Lihat Matriks Sifat</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: KALKULATOR & LAB INTERAKTIF -->
+        <section id="tab-kalkulator" class="tab-content hidden space-y-8">
+            <div class="border-b border-gray-200 pb-4">
+                <h1 class="text-3xl font-extrabold text-brandGreen-900 flex items-center space-x-3">
+                    <i class="fa-solid fa-calculator text-brandYellow-500"></i>
+                    <span>Kalkulator & Lab Interaktif Eksponen</span>
+                </h1>
+                <p class="text-gray-600 mt-1">Uji pemahamanmu secara langsung dengan menghitung dan melihat langkah demi langkah penyelesaian!</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Tool 1: Calculator Perpangkatan -->
+                <div class="glass-card rounded-2xl p-6 shadow-md border-l-4 border-brandGreen-600">
+                    <h2 class="text-xl font-bold text-brandGreen-900 mb-4 flex items-center space-x-2">
+                        <i class="fa-solid fa-superscript text-brandYellow-500"></i>
+                        <span>1. Hitung Nilai Perpangkatan ($a^n$)</span>
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Basis ($a$)</label>
+                                <input type="number" id="calc-base" value="2" step="any" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandGreen-500 focus:outline-none font-bold text-gray-800">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Eksponen ($n$)</label>
+                                <input type="number" id="calc-exp" value="5" step="1" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandGreen-500 focus:outline-none font-bold text-gray-800">
+                            </div>
+                        </div>
+
+                        <button onclick="calculateExponent()" class="w-full py-3 bg-brandGreen-600 hover:bg-brandGreen-700 text-white font-bold rounded-xl shadow transition">
+                            Hitung Sekarang
+                        </button>
+
+                        <div id="calc-exp-result" class="bg-brandGreen-50 border border-brandGreen-200 p-4 rounded-xl text-brandGreen-950 hidden">
+                            <span class="block text-xs font-bold text-brandGreen-700 uppercase">Langkah Perkalian:</span>
+                            <div id="exp-steps" class="font-mono text-sm my-2 text-gray-800 break-words"></div>
+                            <span class="block text-xs font-bold text-brandGreen-700 uppercase mt-2">Hasil Akhir:</span>
+                            <div id="exp-final" class="text-2xl font-extrabold text-brandGreen-900 mt-1"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool 2: Simplifier Bentuk Akar -->
+                <div class="glass-card rounded-2xl p-6 shadow-md border-l-4 border-brandYellow-500">
+                    <h2 class="text-xl font-bold text-brandGreen-900 mb-4 flex items-center space-x-2">
+                        <i class="fa-solid fa-square-root-variable text-brandYellow-500"></i>
+                        <span>2. Menyederhanakan Bentuk Akar ($\sqrt{N}$)</span>
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Masukkan Nilai Dalam Akar ($N$)</label>
+                            <input type="number" id="root-input" value="75" min="1" step="1" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandYellow-500 focus:outline-none font-bold text-gray-800">
+                        </div>
+
+                        <button onclick="simplifyRoot()" class="w-full py-3 bg-brandYellow-500 hover:bg-brandYellow-600 text-brandGreen-950 font-bold rounded-xl shadow transition">
+                            Sederhanakan Akar
+                        </button>
+
+                        <div id="root-result" class="bg-brandYellow-50 border border-brandYellow-200 p-4 rounded-xl text-brandYellow-950 hidden">
+                            <span class="block text-xs font-bold text-brandYellow-800 uppercase">Langkah Pembaktoran Kuadrat Sempurna:</span>
+                            <div id="root-steps" class="font-mono text-sm my-2 text-gray-800"></div>
+                            <span class="block text-xs font-bold text-brandYellow-800 uppercase mt-2">Bentuk Sederhana:</span>
+                            <div id="root-final" class="text-2xl font-extrabold text-brandGreen-900 mt-1"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool 3: Notasi Ilmiah Converter -->
+                <div class="glass-card rounded-2xl p-6 shadow-md border-l-4 border-brandGreen-600 lg:col-span-2">
+                    <h2 class="text-xl font-bold text-brandGreen-900 mb-4 flex items-center space-x-2">
+                        <i class="fa-solid fa-globe text-brandYellow-500"></i>
+                        <span>3. Konverter Notasi Ilmiah / Bentuk Baku ($a \times 10^n$)</span>
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Masukkan Bilangan (Misal: 150000000 atau 0.0000025)</label>
+                            <input type="text" id="sci-input" value="1800000000" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandGreen-500 focus:outline-none font-bold text-gray-800">
+                        </div>
+                        <div>
+                            <button onclick="convertToScientific()" class="w-full py-3 bg-brandGreen-600 hover:bg-brandGreen-700 text-white font-bold rounded-xl shadow transition">
+                                Konversi Notasi Ilmiah
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="sci-result" class="mt-4 bg-brandGreen-50 border border-brandGreen-200 p-4 rounded-xl hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-xs font-bold text-brandGreen-700 uppercase">Notasi Ilmiah (Bentuk Baku):</span>
+                                <div id="sci-notation" class="text-2xl font-extrabold text-brandGreen-900 my-1"></div>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-brandGreen-700 uppercase">Penjelasan / Geser Koma:</span>
+                                <p id="sci-explanation" class="text-sm text-gray-700 mt-1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: SIMULASI PEMBELAHAN -->
+        <section id="tab-simulasi" class="tab-content hidden space-y-8">
+            <div class="border-b border-gray-200 pb-4">
+                <h1 class="text-3xl font-extrabold text-brandGreen-900 flex items-center space-x-3">
+                    <i class="fa-solid fa-virus text-brandYellow-500"></i>
+                    <span>Simulasi Interaktif Pembelahan Mikroorganisme</span>
+                </h1>
+                <p class="text-gray-600 mt-1">
+                    Berdasarkan Soal Latihan 1.1 No. 9 & 10 (Halaman 11 Buku Siswa): Virus berkembang biak dengan membelah secara eksponensial!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Control Panel -->
+                <div class="glass-card rounded-2xl p-6 shadow-md border-t-4 border-brandGreen-600 space-y-6">
+                    <h2 class="text-xl font-bold text-brandGreen-900 flex items-center space-x-2">
+                        <i class="fa-solid fa-sliders text-brandYellow-500"></i>
+                        <span>Pengaturan Simulasi</span>
+                    </h2>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Jenis Organisme:</label>
+                        <select id="sim-type" onchange="updateSimType()" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brandGreen-500 font-semibold">
+                            <option value="virus">Virus Dinkes (Membelah 3 tiap 30 menit)</option>
+                            <option value="amoeba">Amoeba S (Membelah 2 tiap 15 menit)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">
+                            Jumlah Mula-Mula ($a$): <span id="sim-initial-val" class="text-brandGreen-700 font-bold">1</span>
+                        </label>
+                        <input type="range" id="sim-initial" min="1" max="10" value="1" oninput="runSimulation()" class="w-full accent-brandGreen-600">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">
+                            Durasi Waktu Total ($t$ jam): <span id="sim-time-val" class="text-brandGreen-700 font-bold">3</span> Jam
+                        </label>
+                        <input type="range" id="sim-time" min="0.5" max="6" step="0.5" value="3" oninput="runSimulation()" class="w-full accent-brandGreen-600">
+                    </div>
+
+                    <div class="p-4 bg-brandYellow-50 rounded-xl border border-brandYellow-200 text-sm text-brandYellow-900">
+                        <i class="fa-solid fa-circle-info text-brandYellow-600 mr-1"></i>
+                        <strong>Rumus Eksponensial:</strong>
+                        <div id="sim-formula" class="mt-1 font-mono text-xs">$$N(t) = a \times r^n$$</div>
+                    </div>
+                </div>
+
+                <!-- Display & Visualizer -->
+                <div class="lg:col-span-2 glass-card rounded-2xl p-6 shadow-md flex flex-col justify-between space-y-6 border-t-4 border-brandYellow-500">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold text-brandGreen-900">Hasil & Visualisasi Pertumbuhan</h2>
+                            <span id="sim-phase-badge" class="px-3 py-1 bg-brandGreen-100 text-brandGreen-800 rounded-full text-xs font-bold">Periode Ke-6</span>
+                        </div>
+
+                        <!-- Big Counter Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-brandGreen-50 p-4 rounded-xl border border-brandGreen-200">
+                                <span class="text-xs font-bold text-brandGreen-700 uppercase">Total Periode ($n$)</span>
+                                <div id="sim-periods-text" class="text-2xl font-extrabold text-brandGreen-900 mt-1">6 Siklus</div>
+                            </div>
+                            <div class="bg-brandYellow-50 p-4 rounded-xl border border-brandYellow-200">
+                                <span class="text-xs font-bold text-brandYellow-800 uppercase">Rasio Pembelahan ($r$)</span>
+                                <div id="sim-ratio-text" class="text-2xl font-extrabold text-brandYellow-900 mt-1">3x / Siklus</div>
+                            </div>
+                            <div class="bg-emerald-600 p-4 rounded-xl text-white shadow-lg">
+                                <span class="text-xs font-bold uppercase text-emerald-100">Jumlah Populasi Akhir</span>
+                                <div id="sim-total-text" class="text-3xl font-black mt-1 text-brandYellow-300">729</div>
+                            </div>
+                        </div>
+
+                        <!-- Graphical Visual Container -->
+                        <div class="bg-slate-900 rounded-2xl p-6 relative overflow-hidden min-h-[220px] flex items-center justify-center">
+                            <div id="sim-visual-grid" class="flex flex-wrap gap-2 justify-center items-center max-h-[200px] overflow-y-auto p-2">
+                                <!-- Icons generated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Steps Calculation Detail -->
+                    <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 font-mono text-sm text-gray-800">
+                        <span class="text-xs font-bold text-gray-500 uppercase block mb-1">Perhitungan Matematika:</span>
+                        <div id="sim-math-step" class="text-brandGreen-900 font-bold"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: LATIHAN & KUIS -->
+        <section id="tab-kuis" class="tab-content hidden space-y-8">
+            <div class="border-b border-gray-200 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 class="text-3xl font-extrabold text-brandGreen-900 flex items-center space-x-3">
+                        <i class="fa-solid fa-circle-question text-brandYellow-500"></i>
+                        <span>Uji Kompetensi Interaktif Bab 1</span>
+                    </h1>
+                    <p class="text-gray-600 mt-1">Uji kemampuanmu dengan soal-soal pilihan ganda yang dirancang sesuai standar Kurikulum 2013 Revisi.</p>
+                </div>
+
+                <!-- Quiz Progress Stats -->
+                <div id="quiz-score-badge" class="flex items-center space-x-4 bg-white p-3 rounded-xl border border-gray-200 shadow-sm">
+                    <div class="text-right">
+                        <span class="block text-xs text-gray-500 font-bold uppercase">Skor Anda</span>
+                        <span id="quiz-score" class="text-2xl font-black text-brandGreen-700">0 / 0</span>
+                    </div>
+                    <div class="w-12 h-12 bg-brandYellow-400 text-brandGreen-950 font-bold rounded-xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Container -->
+            <div id="quiz-box" class="glass-card rounded-2xl p-6 md:p-8 shadow-lg border-t-4 border-brandGreen-600 max-w-4xl mx-auto space-y-6">
+                <!-- Question Header -->
+                <div class="flex justify-between items-center border-b border-gray-200 pb-4">
+                    <span id="quiz-number" class="px-3 py-1 bg-brandGreen-100 text-brandGreen-800 font-bold rounded-full text-sm">Soal 1 dari 5</span>
+                    <span id="quiz-topic" class="text-xs font-semibold text-gray-500 uppercase">Topik: Bilangan Berpangkat</span>
+                </div>
+
+                <!-- Question Text -->
+                <div id="quiz-question" class="text-lg md:text-xl font-bold text-gray-900 leading-relaxed">
+                    <!-- Loaded dynamically -->
+                </div>
+
+                <!-- Options Grid -->
+                <div id="quiz-options" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Options loaded dynamically -->
+                </div>
+
+                <!-- Feedback & Explanation Box -->
+                <div id="quiz-feedback" class="p-4 rounded-xl hidden transition-all duration-300">
+                    <div id="quiz-feedback-title" class="font-bold text-lg mb-1"></div>
+                    <div id="quiz-feedback-explanation" class="text-sm font-normal"></div>
+                </div>
+
+                <!-- Next Button -->
+                <div class="flex justify-end pt-4">
+                    <button id="quiz-next-btn" onclick="nextQuestion()" disabled class="px-8 py-3 bg-gray-300 text-gray-500 font-bold rounded-xl transition cursor-not-allowed">
+                        Soal Berikutnya <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Completed Modal/Card -->
+            <div id="quiz-result-card" class="glass-card rounded-2xl p-8 text-center max-w-xl mx-auto hidden shadow-2xl border-4 border-brandYellow-400 space-y-6">
+                <div class="w-20 h-20 green-yellow-gradient text-white rounded-full flex items-center justify-center mx-auto text-4xl shadow-xl">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h2 class="text-3xl font-extrabold text-brandGreen-900">Selamat! Kuis Selesai!</h2>
+                <p class="text-gray-600">Kamu telah menyelesaikan seluruh pertanyaan Uji Kompetensi Bab I Perpangkatan dan Bentuk Akar.</p>
+                
+                <div class="bg-brandGreen-50 p-6 rounded-2xl border border-brandGreen-200">
+                    <span class="text-xs font-bold text-brandGreen-700 uppercase">Nilai Akhir Anda:</span>
+                    <div id="final-score-val" class="text-5xl font-black text-brandGreen-900 my-2">100</div>
+                    <p id="final-score-msg" class="text-sm font-semibold text-brandGreen-800">Luar biasa! Pemahaman konsepmu sangat matang.</p>
+                </div>
+
+                <button onclick="restartQuiz()" class="px-8 py-3.5 bg-brandGreen-600 hover:bg-brandGreen-700 text-white font-bold rounded-xl shadow-lg transition w-full">
+                    <i class="fa-solid fa-rotate-right mr-2"></i> Coba Kuis Lagi
+                </button>
+            </div>
+        </section>
+
+        <!-- TAB 5: TOKOH MATEMATIKA -->
+        <section id="tab-tokoh" class="tab-content hidden space-y-8">
+            <div class="glass-card rounded-3xl p-8 md:p-12 shadow-xl border-t-8 border-brandGreen-600 max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center gap-8 mb-8">
+                    <div class="w-40 h-40 rounded-2xl bg-gradient-to-tr from-brandGreen-700 to-brandYellow-400 p-1 shadow-lg flex-shrink-0">
+                        <div class="w-full h-full bg-slate-100 rounded-xl flex items-center justify-center text-brandGreen-900 text-6xl font-bold">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="px-3 py-1 bg-brandYellow-100 text-brandYellow-800 rounded-full text-xs font-bold uppercase tracking-wider">
+                            Tokoh Matematika Bab I
+                        </span>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-brandGreen-900 mt-2">
+                            Julius Wilhelm Richard Dedekind
+                        </h1>
+                        <p class="text-gray-500 text-sm font-medium mt-1">1831 – 1916 (Braunschweig, Jerman)</p>
+                    </div>
+                </div>
+
+                <div class="prose max-w-none text-gray-700 space-y-4 text-justify leading-relaxed">
+                    <p>
+                        <strong>Julius Wilhelm Richard Dedekind</strong> adalah seorang matematikawan ternama asal Jerman yang memberikan kontribusi luar biasa dalam sejarah teori bilangan dan fondasi matematika modern, termasuk konsep bilangan irasional dan bentuk akar.
+                    </p>
+                    <p>
+                        Dedekind menegaskan bahwa angka merupakan kreasi pikiran manusia secara murni. Ia berhasil mendefinisikan bilangan secara kuantitatif melalui konsep <em>"Dedekind Cut"</em> (Irisan Dedekind) yang menghubungkan garis kontinu geometri dengan sistem bilangan riil.
+                    </p>
+                    
+                    <div class="my-6 p-6 bg-brandGreen-50 border-l-4 border-brandGreen-600 rounded-r-2xl">
+                        <h3 class="text-lg font-bold text-brandGreen-900 mb-2 flex items-center space-x-2">
+                            <i class="fa-solid fa-heart text-brandYellow-500"></i>
+                            <span>Hikmah & Values Pembelajaran (Nilai Moral)</span>
+                        </h3>
+                        <ul class="list-disc list-inside space-y-2 text-sm text-brandGreen-950 font-medium">
+                            <li><strong>Semangat Belajar di Usia Muda:</strong> Merumuskan teori bilangan dasar pada usia muda dengan ketekunan tinggi.</li>
+                            <li><strong>Sikap Rendah Hati:</strong> Tetap rendah hati dan tekun belajar meskipun telah diakui sebagai guru besar di Zurich Polytechic.</li>
+                            <li><strong>Pantang Puas Berprestasi:</strong> Terus aktif meneliti dan menerbitkan karya ilmiah bernilai tinggi hingga akhir hayatnya.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL POPUP MATERI DETAIL -->
+    <div id="materi-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative border-2 border-brandGreen-500">
+            <button onclick="closeMateriModal()" class="absolute top-6 right-6 w-10 h-10 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full flex items-center justify-center font-bold transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div id="modal-content-area" class="space-y-6">
+                <!-- Content inserted via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RANGKUMAN SIFAT -->
+    <div id="rangkuman-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative border-2 border-brandYellow-500">
+            <button onclick="closeRangkumanModal()" class="absolute top-6 right-6 w-10 h-10 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full flex items-center justify-center font-bold transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <h2 class="text-2xl font-extrabold text-brandGreen-900 mb-6 flex items-center space-x-2">
+                <i class="fa-solid fa-table-list text-brandYellow-500"></i>
+                <span>Matriks Sifat Perpangkatan & Bentuk Akar Lengkap</span>
+            </h2>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse rounded-xl overflow-hidden shadow-sm">
+                    <thead>
+                        <tr class="bg-brandGreen-800 text-white text-sm">
+                            <th class="p-4">Sifat / Aturan</th>
+                            <th class="p-4">Bentuk Formula Math</th>
+                            <th class="p-4">Contoh Soal & Jawaban</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 text-sm bg-white">
+                        <tr>
+                            <td class="p-4 font-semibold text-gray-800">Perkalian Pangkat Basis Sama</td>
+                            <td class="p-4 font-mono text-brandGreen-700">$a^m \times a^n = a^{m+n}$</td>
+                            <td class="p-4">$3^2 \times 3^3 = 3^{2+3} = 3^5 = 243$</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-4 font-semibold text-gray-800">Pembagian Pangkat Basis Sama</td>
+                            <td class="p-4 font-mono text-brandGreen-700">$\frac{a^m}{a^n} = a^{m-n}$</td>
+                            <td class="p-4">$\frac{5^6}{5^2} = 5^{6-2} = 5^4 = 625$</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold text-gray-800">Pangkat Dipangkatkan</td>
+                            <td class="p-4 font-mono text-brandGreen-700">$(a^m)^n = a^{m \cdot n}$</td>
+                            <td class="p-4">$(2^3)^2 = 2^{3 \times 2} = 2^6 = 64$</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-4 font-semibold text-gray-800">Pangkat Perkalian Bilangan</td>
+                            <td class="p-4 font-mono text-brandGreen-700">$(a \cdot b)^n = a^n \cdot b^n$</td>
+                            <td class="p-4">$(2 \times 3)^3 = 2^3 \times 3^3 = 8 \times 27 = 216$</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold text-gray-800">Pangkat Nol</td>
+                            <td class="p-4 font-mono text-brandGreen-700">$a^0 = 1 \quad (a \ne 0)$</td>
+                            <td class="p-4">$999^0 = 1$</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="p-4 font-semibold text-gray-800">Pangkat Negatif</td>
+                            <td class="p-4 font-mono text-brandGreen-700">$a^{-n} = \frac{1}{a^n}$</td>
+                            <td class="p-4">$2^{-3} = \frac{1}{2^3} = \frac{1}{8}$</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold text-gray-800">Perkalian Bentuk Akar</td>
+                            <td class="p-4 font-mono text-brandGreen-700">$\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$</td>
+                            <td class="p-4">$\sqrt{50} = \sqrt{25 \times 2} = 5\sqrt{2}$</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brandGreen-900 text-white border-t-4 border-brandYellow-400 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div>
+                <span class="text-xl font-extrabold tracking-wider">Math<span class="text-brandYellow-400">IX</span> Interaktif</span>
+                <p class="text-emerald-200 text-xs mt-1">Media Pembelajaran Digital Matematika Kelas IX SMP/MTs Kurikulum 2013 Revisi</p>
+            </div>
+            <div class="text-xs text-emerald-300">
+                &copy; 2026 Developed with International Standards | Emerald & Gold Edition
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global State & Data
+        let currentTab = 'materi';
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let userAnswers = [];
+
+        // Function to render math dynamically with KaTeX
+        function renderMath(elem = document.body) {
+            if (window.renderMathInElement) {
+                renderMathInElement(elem, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '\\[', right: '\\]', display: true}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        function initKaTeX() {
+            renderMath(document.body);
+        }
+
+        // Quiz Question Database (Based on Textbook Problems)
+        const quizData = [
+            {
+                number: 1,
+                topic: "1.1 Bilangan Berpangkat",
+                question: "Bentuk sederhana dari perkalian berulang $(-3) \\times (-3) \\times (-3) \\times (-3)$ adalah...",
+                options: [
+                    "A. $-3^4$",
+                    "B. $(-3)^4$",
+                    "C. $3^{-4}$",
+                    "D. $-12$"
+                ],
+                correct: 1,
+                explanation: "Karena $(-3)$ dikalikan berulang sebanyak 4 kali, maka basisnya adalah $(-3)$ dan pangkatnya (eksponen) adalah 4, ditulis $(-3)^4$."
+            },
+            {
+                number: 2,
+                topic: "1.2 Perkalian pada Perpangkatan",
+                question: "Hasil sederhana dari $4^3 \\times 4^2$ adalah...",
+                options: [
+                    "A. $4^6$",
+                    "B. $16^5$",
+                    "C. $4^5$",
+                    "D. $4^1$"
+                ],
+                correct: 2,
+                explanation: "Sesuai sifat perkalian dengan basis sama $a^m \\times a^n = a^{m+n}$, maka $4^3 \\times 4^2 = 4^{3+2} = 4^5$ ($1024$)."
+            },
+            {
+                number: 3,
+                topic: "1.3 Pembagian pada Perpangkatan",
+                question: "Bentuk sederhana dari $\\frac{(-4)^7}{(-4)^2}$ adalah...",
+                options: [
+                    "A. $(-4)^5$",
+                    "B. $(-4)^9$",
+                    "C. $4^5$",
+                    "D. $(-4)^{14}$"
+                ],
+                correct: 0,
+                explanation: "Sesuai sifat pembagian perpangkatan $\\frac{a^m}{a^n} = a^{m-n}$, maka $\\frac{(-4)^7}{(-4)^2} = (-4)^{7-2} = (-4)^5$."
+            },
+            {
+                number: 4,
+                topic: "1.4 Pangkat Nol, Negatif & Akar",
+                question: "Nilai dari $2^{-3} + 5^0$ adalah...",
+                options: [
+                    "A. $\\frac{1}{8}$",
+                    "B. $1 \\frac{1}{8}$",
+                    "C. $-8$",
+                    "D. $0$"
+                ],
+                correct: 1,
+                explanation: "Ingat $2^{-3} = \\frac{1}{2^3} = \\frac{1}{8}$ dan $5^0 = 1$. Maka $\\frac{1}{8} + 1 = 1 \\frac{1}{8}$ (atau $\\frac{9}{8}$)."
+            },
+            {
+                number: 5,
+                topic: "1.5 Notasi Ilmiah",
+                question: "Jarak rata-rata Bumi ke Matahari adalah $1.800.000.000$ km. Penulisan dalam Notasi Ilmiah (Bentuk Baku) adalah...",
+                options: [
+                    "A. $18 \\times 10^8$ km",
+                    "B. $1,8 \\times 10^9$ km",
+                    "C. $1,8 \\times 10^8$ km",
+                    "D. $0,18 \\times 10^{10}$ km"
+                ],
+                correct: 1,
+                explanation: "Bentuk baku ditulis $a \\times 10^n$ dengan $1 \\le a < 10$. Geser koma sebanyak 9 tempat ke kiri sehingga menjadi $1,8 \\times 10^9$."
+            }
+        ];
+
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            // Update Nav styling
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active-tab');
+            });
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) activeBtn.classList.add('active-tab');
+
+            // Trigger re-render math equations
+            renderMath(document.body);
+
+            if (tabId === 'simulasi') {
+                runSimulation();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Tool 1: Exponent Calculator
+        function calculateExponent() {
+            const base = parseFloat(document.getElementById('calc-base').value);
+            const exp = parseInt(document.getElementById('calc-exp').value);
+            const resultBox = document.getElementById('calc-exp-result');
+            const stepsDiv = document.getElementById('exp-steps');
+            const finalDiv = document.getElementById('exp-final');
+
+            if (isNaN(base) || isNaN(exp)) return;
+
+            let result = Math.pow(base, exp);
+            let stepsText = "";
+
+            if (exp === 0) {
+                stepsText = `${base}^0 = 1 \\text{ (Sifat Pangkat Nol)}`;
+            } else if (exp > 0 && exp <= 15) {
+                let arr = Array(exp).fill(`(${base})`);
+                stepsText = `${arr.join(' \\times ')}`;
+            } else if (exp < 0) {
+                stepsText = `${base}^{${exp}} = \\frac{1}{${base}^{${Math.abs(exp)}}} = \\frac{1}{${Math.pow(base, Math.abs(exp))}}`;
+            } else {
+                stepsText = `\\text{Perkalian berulang } ${base} \\text{ sebanyak } ${exp} \\text{ kali}`;
+            }
+
+            stepsDiv.innerHTML = `$$${stepsText}$$`;
+            finalDiv.innerText = result.toLocaleString('id-ID');
+            resultBox.classList.remove('hidden');
+
+            renderMath(stepsDiv);
+        }
+
+        // Tool 2: Simplify Root
+        function simplifyRoot() {
+            const num = parseInt(document.getElementById('root-input').value);
+            const resultBox = document.getElementById('root-result');
+            const stepsDiv = document.getElementById('root-steps');
+            const finalDiv = document.getElementById('root-final');
+
+            if (isNaN(num) || num <= 0) return;
+
+            let outside = 1;
+            let inside = num;
+
+            for (let i = Math.floor(Math.sqrt(num)); i >= 2; i--) {
+                let square = i * i;
+                if (num % square === 0) {
+                    outside = i;
+                    inside = num / square;
+                    break;
+                }
+            }
+
+            if (outside > 1) {
+                stepsDiv.innerHTML = `$$\\sqrt{${num}} = \\sqrt{${outside * outside} \\times ${inside}} = \\sqrt{${outside * outside}} \\times \\sqrt{${inside}} = ${outside}\\sqrt{${inside}}$$`;
+                finalDiv.innerHTML = `$$${outside}\\sqrt{${inside}}$$`;
+            } else {
+                stepsDiv.innerHTML = `$$\\sqrt{${num}} \\text{ tidak memiliki faktor kuadrat sempurna selain 1.}$$`;
+                finalDiv.innerHTML = `$$\\sqrt{${num}}$$`;
+            }
+
+            resultBox.classList.remove('hidden');
+            renderMath(resultBox);
+        }
+
+        // Tool 3: Scientific Notation
+        function convertToScientific() {
+            const rawVal = document.getElementById('sci-input').value.trim();
+            const num = parseFloat(rawVal);
+            const resultBox = document.getElementById('sci-result');
+            const notationDiv = document.getElementById('sci-notation');
+            const expP = document.getElementById('sci-explanation');
+
+            if (isNaN(num)) return;
+
+            const expNotation = num.toExponential();
+            const parts = expNotation.split('e');
+            let coefficient = parseFloat(parts[0]).toFixed(2);
+            let power = parseInt(parts[1]);
+
+            notationDiv.innerHTML = `$$${coefficient} \\times 10^{${power}}$$`;
+            
+            if (power > 0) {
+                expP.innerHTML = `Koma digeser sebanyak ${power} tempat ke KIRI untuk membuat nilai basis $a$ ($1 \\le a < 10$).`;
+            } else if (power < 0) {
+                expP.innerHTML = `Koma digeser sebanyak ${Math.abs(power)} tempat ke KANAN untuk membuat nilai basis $a$ ($1 \\le a < 10$).`;
+            } else {
+                expP.innerHTML = `Angka sudah berada di rentang $1 \\le a < 10$.`;
+            }
+
+            resultBox.classList.remove('hidden');
+            renderMath(resultBox);
+        }
+
+        function updateSimType() {
+            runSimulation();
+        }
+
+        function runSimulation() {
+            const type = document.getElementById('sim-type').value;
+            const a = parseInt(document.getElementById('sim-initial').value);
+            const hours = parseFloat(document.getElementById('sim-time').value);
+
+            document.getElementById('sim-initial-val').innerText = a;
+            document.getElementById('sim-time-val').innerText = hours;
+
+            let ratio = 3;
+            let intervalMins = 30;
+            let iconClass = "fa-virus text-emerald-400";
+
+            if (type === 'amoeba') {
+                ratio = 2;
+                intervalMins = 15;
+                iconClass = "fa-bacteria text-amber-400";
+            }
+
+            const totalMins = hours * 60;
+            const n = Math.floor(totalMins / intervalMins);
+            const totalPop = a * Math.pow(ratio, n);
+
+            document.getElementById('sim-periods-text').innerText = `${n} Siklus`;
+            document.getElementById('sim-ratio-text').innerText = `${ratio}x / ${intervalMins} mnt`;
+            document.getElementById('sim-total-text').innerText = totalPop.toLocaleString('id-ID');
+            document.getElementById('sim-phase-badge').innerText = `T = ${hours} Jam (${totalMins} menit)`;
+
+            document.getElementById('sim-math-step').innerText = `N(${hours} jam) = ${a} × (${ratio})^${n} = ${a} × ${Math.pow(ratio, n)} = ${totalPop.toLocaleString('id-ID')} ekor/sel`;
+
+            // Render icons visually in container
+            const grid = document.getElementById('sim-visual-grid');
+            grid.innerHTML = '';
+            const displayIconsCount = Math.min(totalPop, 80);
+
+            for (let i = 0; i < displayIconsCount; i++) {
+                const icon = document.createElement('i');
+                icon.className = `fa-solid ${iconClass} text-2xl animate-pulse`;
+                grid.appendChild(icon);
+            }
+
+            if (totalPop > 80) {
+                const badge = document.createElement('span');
+                badge.className = "text-xs text-white font-bold bg-brandGreen-700 px-3 py-1 rounded-full";
+                badge.innerText = `+ ${(totalPop - 80).toLocaleString('id-ID')} mikroorganisme lainnya...`;
+                grid.appendChild(badge);
+            }
+        }
+
+        function loadQuizQuestion() {
+            const q = quizData[currentQuizIndex];
+            document.getElementById('quiz-number').innerText = `Soal ${currentQuizIndex + 1} dari ${quizData.length}`;
+            document.getElementById('quiz-topic').innerText = q.topic;
+            document.getElementById('quiz-question').innerHTML = q.question;
+
+            const optsBox = document.getElementById('quiz-options');
+            optsBox.innerHTML = '';
+
+            q.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full text-left p-4 rounded-xl border border-gray-200 bg-white hover:bg-brandGreen-50 hover:border-brandGreen-500 font-medium transition flex items-center justify-between text-gray-800`;
+                btn.onclick = () => selectQuizAnswer(idx);
+                btn.innerHTML = `<span>${optText}</span> <i class="fa-regular fa-circle text-gray-400"></i>`;
+                optsBox.appendChild(btn);
+            });
+
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            const nextBtn = document.getElementById('quiz-next-btn');
+            nextBtn.disabled = true;
+            nextBtn.className = "px-8 py-3 bg-gray-300 text-gray-500 font-bold rounded-xl transition cursor-not-allowed";
+
+            renderMath(document.getElementById('quiz-box'));
+        }
+
+        function selectQuizAnswer(optIdx) {
+            const q = quizData[currentQuizIndex];
+            const optBtns = document.querySelectorAll('.option-btn');
+            
+            optBtns.forEach(btn => btn.disabled = true);
+
+            const feedbackBox = document.getElementById('quiz-feedback');
+            const feedbackTitle = document.getElementById('quiz-feedback-title');
+            const feedbackExp = document.getElementById('quiz-feedback-explanation');
+
+            if (optIdx === q.correct) {
+                quizScore += 20;
+                optBtns[optIdx].classList.add('bg-emerald-100', 'border-emerald-600', 'text-emerald-900', 'font-bold');
+                optBtns[optIdx].querySelector('i').className = "fa-solid fa-circle-check text-emerald-600 text-xl";
+
+                feedbackBox.className = "p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 mt-4";
+                feedbackTitle.innerText = "Jawaban Benar!";
+            } else {
+                optBtns[optIdx].classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900', 'font-bold');
+                optBtns[optIdx].querySelector('i').className = "fa-solid fa-circle-xmark text-rose-600 text-xl";
+
+                optBtns[q.correct].classList.add('bg-emerald-50', 'border-emerald-500');
+
+                feedbackBox.className = "p-4 rounded-xl bg-rose-50 border border-rose-300 text-rose-950 mt-4";
+                feedbackTitle.innerText = "Jawaban Kurang Tepat";
+            }
+
+            feedbackExp.innerHTML = q.explanation;
+            feedbackBox.classList.remove('hidden');
+
+            document.getElementById('quiz-score').innerText = `${quizScore} / 100`;
+
+            const nextBtn = document.getElementById('quiz-next-btn');
+            nextBtn.disabled = false;
+            nextBtn.className = "px-8 py-3 bg-brandGreen-600 hover:bg-brandGreen-700 text-white font-bold rounded-xl shadow transition cursor-pointer";
+
+            renderMath(feedbackBox);
+        }
+
+        function nextQuestion() {
+            currentQuizIndex++;
+            if (currentQuizIndex < quizData.length) {
+                loadQuizQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            document.getElementById('quiz-box').classList.add('hidden');
+            const resultCard = document.getElementById('quiz-result-card');
+            resultCard.classList.remove('hidden');
+            
+            document.getElementById('final-score-val').innerText = quizScore;
+            const msg = document.getElementById('final-score-msg');
+            if (quizScore >= 80) {
+                msg.innerText = "Luar biasa! Pemahaman konsepmu sangat matang.";
+            } else if (quizScore >= 60) {
+                msg.innerText = "Bagus! Kamu sudah memahami sebagian besar materi.";
+            } else {
+                msg.innerText = "Tetap semangat! Pelajari kembali materi dan coba lagi.";
+            }
+
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-score').innerText = '0 / 100';
+            document.getElementById('quiz-result-card').classList.add('hidden');
+            document.getElementById('quiz-box').classList.remove('hidden');
+            loadQuizQuestion();
+        }
+
+        const materiDetails = {
+            1: {
+                title: "1.1 Bilangan Berpangkat",
+                content: `<p class="mb-3"><strong>Perpangkatan</strong> adalah perkalian berulang dari suatu bilangan yang sama. Bilangan pokok disebut <em>basis</em> ($a$) dan bilangan pangkat disebut <em>eksponen</em> ($n$).</p>
+                <div class="bg-brandGreen-50 p-4 rounded-xl font-mono text-center mb-3">$$a^n = \\underbrace{a \\times a \\times \\dots \\times a}_{n \\text{ faktor}}$$</div>
+                <p>Contoh: $3^4 = 3 \\times 3 \\times 3 \\times 3 = 81$. Di sini 3 adalah basis dan 4 adalah eksponen.</p>`
+            },
+            2: {
+                title: "1.2 Perkalian pada Perpangkatan",
+                content: `<p class="mb-3">Jika dua perkalian bilangan berpangkat memiliki basis yang sama, maka pangkatnya dijumlahkan.</p>
+                <div class="bg-brandGreen-50 p-4 rounded-xl font-mono text-center mb-3">$$a^m \\times a^n = a^{m+n}$$</div>
+                <p class="mb-3">Aturan pangkat dipangkatkan:</p>
+                <div class="bg-brandGreen-50 p-4 rounded-xl font-mono text-center mb-3">$$(a^m)^n = a^{m \\cdot n}$$</div>`
+            },
+            3: {
+                title: "1.3 Pembagian pada Perpangkatan",
+                content: `<p class="mb-3">Jika dua pembagian bilangan berpangkat memiliki basis yang sama, maka pangkatnya dikurangi.</p>
+                <div class="bg-brandGreen-50 p-4 rounded-xl font-mono text-center mb-3">$$\\frac{a^m}{a^n} = a^{m-n} \\quad (a \\ne 0)$$</div>`
+            },
+            4: {
+                title: "1.4 Pangkat Nol, Negatif & Bentuk Akar",
+                content: `<p class="mb-3">Semua bilangan tak-nol dipangkatkan 0 bernilai 1. Pangkat negatif merupakan kebalikan dari pangkat positif.</p>
+                <div class="bg-brandYellow-50 p-4 rounded-xl font-mono text-center mb-3">$$a^0 = 1, \\quad a^{-n} = \\frac{1}{a^n}$$</div>
+                <p>Menyederhanakan bentuk akar dengan mencari faktor kuadrat sempurna: $\\sqrt{a \\cdot b} = \\sqrt{a} \\cdot \\sqrt{b}$.</p>`
+            },
+            5: {
+                title: "1.5 Notasi Ilmiah (Bentuk Baku)",
+                content: `<p class="mb-3">Notasi ilmiah digunakan untuk menuliskan bilangan yang sangat besar atau sangat kecil secara ringkas:</p>
+                <div class="bg-brandYellow-50 p-4 rounded-xl font-mono text-center mb-3">$$a \\times 10^n \\quad (1 \\le a < 10 \\text{ dan } n \\in \\mathbb{Z})$$</div>`
+            }
+        };
+
+        function openMateriModal(subId) {
+            const data = materiDetails[subId];
+            if (!data) return;
+
+            const modalContent = document.getElementById('modal-content-area');
+            modalContent.innerHTML = `
+                <div class="border-b border-gray-200 pb-3">
+                    <span class="text-xs font-bold uppercase text-brandGreen-600 tracking-wider">Materi Sub-Bab</span>
+                    <h2 class="text-2xl font-black text-brandGreen-900">${data.title}</h2>
+                </div>
+                <div>${data.content}</div>
+            `;
+
+            document.getElementById('materi-modal').classList.remove('hidden');
+            renderMath(modalContent);
+        }
+
+        function closeMateriModal() {
+            document.getElementById('materi-modal').classList.add('hidden');
+        }
+
+        function openRangkumanModal() {
+            const modal = document.getElementById('rangkuman-modal');
+            modal.classList.remove('hidden');
+            renderMath(modal);
+        }
+
+        function closeRangkumanModal() {
+            document.getElementById('rangkuman-modal').classList.add('hidden');
+        }
+
+        // Initialize App on Load
+        window.onload = function() {
+            switchTab('materi');
+            loadQuizQuestion();
+            runSimulation();
+            renderMath(document.body);
+        };
+    </script>
+</body>
+</html>
